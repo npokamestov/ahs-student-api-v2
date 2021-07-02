@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 
 @RestController
 public class StudentController {
@@ -16,8 +17,22 @@ public class StudentController {
     private StudentRepository repo;
 
     @GetMapping("/studentCourse")
-    public List<Student> getAllStudentCourses() {
+    public List<Student> getAllStudentCourses(@RequestParam(required = false) Long userId,
+                                              @RequestParam(required = false) Long courseId) {
+        if (userId !=null && courseId !=null) {
+            return repo.findByUserIdAndCourseId(userId,courseId);
+        } else
         return repo.findAll();
+    }
+
+    @GetMapping("/studentCourse/studentList/{userId}")
+    public List<Student> getAllStudentCoursesByStudentId(@PathVariable Long userId) {
+        return repo.findByUserId(userId);
+    }
+
+    @GetMapping("/studentCourse/senseisRegisteredCourses/{courseId}")
+    public List<Student> getAllStudentCoursesByCourseId(@PathVariable Long courseId) {
+        return repo.findByCourseId(courseId);
     }
 
     @GetMapping("/studentCourse/{id}")
