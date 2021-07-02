@@ -5,10 +5,8 @@ import com.adhocsensei.ahsstudentapi.dto.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.LongStream;
 
 @RestController
 public class StudentController {
